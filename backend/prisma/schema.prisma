@@ -1,0 +1,67 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  company   String?
+  createdAt DateTime @default(now())
+  
+  connections Connection[]
+  migrations  Migration[]
+}
+
+model Connection {
+  id          Int      @id @default(autoincrement())
+  name        String
+  type        String   // "database", "excel", "csv", "api"
+  config      String   // JSON string with connection details
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  lastUsed    DateTime?
+  createdAt   DateTime @default(now())
+  
+  sourceMigrations Migration[] @relation("SourceConnection")
+  targetMigrations Migration[] @relation("TargetConnection")
+}
+
+model Migration {
+  id              Int      @id @default(autoincrement())
+  name            String
+  status          String   // "pending", "running", "completed", "failed"
+  sourceId        Int
+  targetId        Int
+  mappings        String   // JSON string with field mappings
+  transformations String?  // JSON string with transformation rules
+  recordsTotal    Int      @default(0)
+  recordsProcessed Int     @default(0)
+  errorLog        String?
+  userId          Int
+  jobId           String?  // BullMQ job ID
+  
+  user            User       @relation(fields: [userId], references: [id])
+  source          Connection @relation("SourceConnection", fields: [sourceId], references: [id])
+  target          Connection @relation("TargetConnection", fields: [targetId], references: [id])
+  
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+}
+
+model MigrationLog {
+  id          Int      @id @default(autoincrement())
+  migrationId Int
+  level       String   // "info", "warning", "error"
+  message     String
+  details     String?
+  createdAt   DateTime @default(now())
+}
