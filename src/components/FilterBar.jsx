@@ -1,4 +1,4 @@
-import { useUIStore, useItemStore } from "../stores";
+import { useUIStore, useTaskStore } from "../stores";
 
 const FILTERS = [
   { key: "all", label: "Alle" },
@@ -8,7 +8,7 @@ const FILTERS = [
 
 export default function FilterBar() {
   const { filter, setFilter } = useUIStore();
-  const activeCount = useItemStore((s) => s.items.filter((i) => !i.done).length);
+  const activeCount = useTaskStore((s) => s.tasks.filter((t) => !t.done).length);
 
   return (
     <div className="mb-5 flex items-center gap-2">

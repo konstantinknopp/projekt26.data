@@ -1,11 +1,11 @@
-import { useItemStore, useUIStore } from "../stores";
+import { useTaskStore, useUIStore } from "../stores";
 import ItemCard from "./ItemCard";
 
 export default function ItemList() {
-  const { items, loading } = useItemStore();
+  const { tasks, loading } = useTaskStore();
   const filter = useUIStore((s) => s.filter);
 
-  const filtered = items.filter((item) => {
+  const filtered = tasks.filter((item) => {
     if (filter === "active") return !item.done;
     if (filter === "done") return item.done;
     return true;

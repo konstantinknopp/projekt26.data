@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { useItemStore } from "../stores";
+import { useTaskStore } from "../stores";
 
 export default function AddItemForm() {
   const [title, setTitle] = useState("");
-  const addItem = useItemStore((s) => s.addItem);
+  const add = useTaskStore((s) => s.add);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-    addItem({ title: title.trim(), done: false });
+    add({ title: title.trim(), done: false });
     setTitle("");
   };
 
