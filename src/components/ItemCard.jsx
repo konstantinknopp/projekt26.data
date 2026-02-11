@@ -4,55 +4,31 @@ export default function ItemCard({ item }) {
   const { removeItem, toggleItem } = useItemStore();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 14,
-        padding: "16px 20px",
-        background: "var(--card-bg)",
-        borderRadius: 14,
-        marginBottom: 10,
-        border: "1px solid var(--border)",
-        transition: "transform 0.15s, box-shadow 0.15s",
-      }}
-    >
+    <div className="mb-2.5 flex items-center gap-3.5 rounded-[14px] border border-border bg-card px-5 py-4 transition-transform hover:scale-[1.01]">
       {/* Checkbox */}
       <button
         onClick={() => toggleItem(item.id)}
         aria-label={item.done ? "Als offen markieren" : "Als erledigt markieren"}
-        style={{
-          width: 24,
-          height: 24,
-          borderRadius: 7,
-          border: item.done ? "none" : "2px solid var(--border-strong)",
-          background: item.done ? "var(--accent)" : "transparent",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          transition: "all 0.2s",
-        }}
+        className={`flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-[7px] transition-all ${
+          item.done
+            ? "border-none bg-accent"
+            : "border-2 border-border-strong bg-transparent"
+        }`}
       >
-        {item.done && <span style={{ color: "#fff", fontSize: 14 }}>✓</span>}
+        {item.done && <span className="text-sm text-white">✓</span>}
       </button>
 
       {/* Title */}
       <span
-        style={{
-          flex: 1,
-          fontSize: 15,
-          color: item.done ? "var(--text-muted)" : "var(--text)",
-          textDecoration: item.done ? "line-through" : "none",
-          transition: "color 0.2s",
-        }}
+        className={`flex-1 text-[15px] transition-colors ${
+          item.done ? "text-muted line-through" : "text-text"
+        }`}
       >
         {item.title}
       </span>
 
       {/* Date */}
-      <span style={{ fontSize: 12, color: "var(--text-muted)", marginRight: 8 }}>
+      <span className="mr-2 text-xs text-muted">
         {new Date(item.created_at).toLocaleDateString("de-DE")}
       </span>
 
@@ -60,24 +36,7 @@ export default function ItemCard({ item }) {
       <button
         onClick={() => removeItem(item.id)}
         aria-label="Löschen"
-        style={{
-          background: "none",
-          border: "none",
-          color: "var(--text-muted)",
-          cursor: "pointer",
-          fontSize: 18,
-          padding: "4px 8px",
-          borderRadius: 6,
-          transition: "color 0.2s, background 0.2s",
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.color = "#e55";
-          e.target.style.background = "rgba(238,85,85,0.1)";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.color = "var(--text-muted)";
-          e.target.style.background = "none";
-        }}
+        className="cursor-pointer rounded-md px-2 py-1 text-lg text-muted transition-colors hover:bg-danger/10 hover:text-danger"
       >
         ×
       </button>

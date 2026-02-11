@@ -13,36 +13,16 @@ export default function AddItemForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", gap: 12, marginBottom: 32 }}>
+    <form onSubmit={handleSubmit} className="mb-8 flex gap-3">
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Neues Item hinzufügen…"
-        style={{
-          flex: 1,
-          padding: "14px 18px",
-          border: "1px solid var(--border)",
-          borderRadius: 12,
-          background: "var(--input-bg)",
-          color: "var(--text)",
-          fontSize: 15,
-          outline: "none",
-          transition: "border-color 0.2s",
-        }}
+        className="flex-1 rounded-xl border border-border bg-input px-4.5 py-3.5 text-[15px] text-text outline-none transition-colors placeholder:text-muted focus:border-accent"
       />
       <button
         type="submit"
-        style={{
-          padding: "14px 28px",
-          background: "var(--accent)",
-          color: "#fff",
-          border: "none",
-          borderRadius: 12,
-          fontWeight: 600,
-          fontSize: 15,
-          cursor: "pointer",
-          transition: "opacity 0.2s",
-        }}
+        className="rounded-xl bg-accent px-7 py-3.5 text-[15px] font-semibold text-white transition-opacity hover:opacity-90 cursor-pointer"
       >
         Hinzufügen
       </button>

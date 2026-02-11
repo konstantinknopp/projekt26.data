@@ -12,13 +12,15 @@ export default function ItemList() {
   });
 
   if (loading) {
-    return <p style={{ color: "var(--text-muted)", textAlign: "center", padding: 40 }}>Laden…</p>;
+    return <p className="py-10 text-center text-muted">Laden…</p>;
   }
 
   if (filtered.length === 0) {
     return (
-      <p style={{ color: "var(--text-muted)", textAlign: "center", padding: 40, fontSize: 14 }}>
-        {filter === "all" ? "Noch keine Items. Füge eins oben hinzu!" : `Keine ${filter === "active" ? "offenen" : "erledigten"} Items.`}
+      <p className="py-10 text-center text-sm text-muted">
+        {filter === "all"
+          ? "Noch keine Items. Füge eins oben hinzu!"
+          : `Keine ${filter === "active" ? "offenen" : "erledigten"} Items.`}
       </p>
     );
   }

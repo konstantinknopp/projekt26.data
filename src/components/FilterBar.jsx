@@ -11,27 +11,21 @@ export default function FilterBar() {
   const activeCount = useItemStore((s) => s.items.filter((i) => !i.done).length);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+    <div className="mb-5 flex items-center gap-2">
       {FILTERS.map((f) => (
         <button
           key={f.key}
           onClick={() => setFilter(f.key)}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 8,
-            border: "none",
-            background: filter === f.key ? "var(--accent)" : "var(--card-bg)",
-            color: filter === f.key ? "#fff" : "var(--text-muted)",
-            fontWeight: 500,
-            fontSize: 13,
-            cursor: "pointer",
-            transition: "all 0.2s",
-          }}
+          className={`cursor-pointer rounded-lg px-4 py-2 text-[13px] font-medium transition-all ${
+            filter === f.key
+              ? "bg-accent text-white"
+              : "bg-card text-muted hover:text-text"
+          }`}
         >
           {f.label}
         </button>
       ))}
-      <span style={{ marginLeft: "auto", fontSize: 13, color: "var(--text-muted)" }}>
+      <span className="ml-auto text-[13px] text-muted">
         {activeCount} offen
       </span>
     </div>
